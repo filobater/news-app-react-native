@@ -1,9 +1,21 @@
 import React from 'react';
-import { Text } from 'react-native';
+
 import Categories from '../layout/Categories';
 
-const HomeScreen = () => {
-  return <Categories />;
+import { Button } from 'react-native';
+
+// navigation tess
+const HomeScreen = ({ navigation }) => {
+  return (
+    <>
+      <Categories />
+      {/* for test */}
+      <Button
+        title="go to article"
+        onPress={() => navigation.navigate('ArticleScreen')}
+      />
+    </>
+  );
 };
 
 export default HomeScreen;

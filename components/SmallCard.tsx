@@ -5,7 +5,7 @@ type SmallCardProps = {
   src: string;
   title: string;
   time: string;
-  author: string;
+  author?: string | null;
 };
 
 const SmallCard: React.FC<SmallCardProps> = ({ src, title, time, author }) => {
@@ -20,7 +20,10 @@ const SmallCard: React.FC<SmallCardProps> = ({ src, title, time, author }) => {
           {title.slice(0, 1).toUpperCase() + title.slice(1)}
         </Text>
         <Text style={styles.author}>
-          {author.slice(0, 1).toUpperCase() + author.slice(1)}. {time}
+          {author
+            ? author.slice(0, 1).toUpperCase() + author.slice(1)
+            : 'Anonymous'}
+          . {time}
         </Text>
       </View>
       <View style={styles.imgContainer}>
