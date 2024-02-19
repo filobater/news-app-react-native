@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -23,12 +24,9 @@ const Card: React.FC<CardProps> = ({ src, title, time, newspaperName }) => {
           }}
         />
       </View>
-      <Text style={styles.title}>
-        {title.slice(0, 1).toUpperCase() + title.slice(1)}
-      </Text>
+      <Text style={styles.title}>{title}</Text>
       <Text style={styles.newsPaper}>
-        {newspaperName.slice(0, 1).toUpperCase() + newspaperName.slice(1)}.{' '}
-        {time}
+        {newspaperName}. {moment(time).format('YYYY-MM-DD')}
       </Text>
     </Pressable>
   );
@@ -38,7 +36,7 @@ export default Card;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 50,
+    marginBottom: 40,
   },
   pressed: {
     opacity: 0.7,

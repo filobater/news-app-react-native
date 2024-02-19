@@ -3,9 +3,9 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import Category from '../components/Category';
 
 const Categories: React.FC = () => {
-  const categories = ['general', 'science', 'sports', 'technology', 'health'];
+  const categories = ['business', 'science', 'sports', 'technology', 'health'];
   return (
-    <View>
+    <View style={styles.container}>
       <ScrollView horizontal>
         {categories.map((category) => (
           <Category key={category} name={category} />
@@ -17,4 +17,8 @@ const Categories: React.FC = () => {
 
 export default Categories;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 8,
+  },
+});

@@ -13,11 +13,15 @@ const CategoryScreen: React.FC<Props> = ({ navigation, route }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: title,
+      title: title.slice(0, 1).toUpperCase() + title.slice(1),
     });
-  }, [navigation]);
+  }, [navigation, route]);
 
-  return <Text>{title}</Text>;
+  return (
+    <>
+      <Text>{title}</Text>
+    </>
+  );
 };
 
 export default CategoryScreen;

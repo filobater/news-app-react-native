@@ -16,14 +16,9 @@ const SmallCard: React.FC<SmallCardProps> = ({ src, title, time, author }) => {
       }
     >
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>
-          {title.slice(0, 1).toUpperCase() + title.slice(1)}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
         <Text style={styles.author}>
-          {author
-            ? author.slice(0, 1).toUpperCase() + author.slice(1)
-            : 'Anonymous'}
-          . {time}
+          {author ? author : 'Anonymous'}. {time}
         </Text>
       </View>
       <View style={styles.imgContainer}>
