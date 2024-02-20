@@ -1,32 +1,47 @@
 import moment from 'moment';
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ArticleType } from '../types/Article';
+import { MyNavigationProp } from '../types/Navigation';
+
+import { useNavigation } from '@react-navigation/native';
+import FallbackImage from './FallbackImage';
 
 type CardProps = {
-  src: string;
-  title: string;
-  time: string;
-  newspaperName: string;
+  article: ArticleType;
 };
 
-const Card: React.FC<CardProps> = ({ src, title, time, newspaperName }) => {
+const Card: React.FC<CardProps> = ({ article }) => {
+  const navigation = useNavigation<MyNavigationProp>();
+
+  const handlePress = () => {
+    navigation.navigate('ArticleScreen', { article });
+  };
+
   return (
     <Pressable
+      onPress={handlePress}
       style={({ pressed }) =>
         pressed ? { ...styles.container, ...styles.pressed } : styles.container
       }
     >
-      <View style={styles.imgContainer}>
-        <Image
-          style={styles.newsImage}
-          source={{
-            uri: src,
-          }}
-        />
-      </View>
-      <Text style={styles.title}>{title}</Text>
+      {!article.urlToImage ? (
+        <FallbackImage width={'100%'} height={200} fontSize={14} />
+      ) : (
+        <View style={styles.imgContainer}>
+          <Image
+            style={styles.newsImage}
+            source={{
+              uri: article.urlToImage,
+            }}
+          />
+        </View>
+      )}
+
+      <Text style={styles.title}>{article.title}</Text>
       <Text style={styles.newsPaper}>
-        {newspaperName}. {moment(time).format('YYYY-MM-DD')}
+        {article?.source?.name}.{' '}
+        {moment(article.publishedAt).format('YYYY-MM-DD')}
       </Text>
     </Pressable>
   );

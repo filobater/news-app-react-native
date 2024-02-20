@@ -1,34 +1,57 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ArticleType } from '../types/Article';
+import moment from 'moment';
+import { useNavigation } from '@react-navigation/native';
+import FallbackImage from './FallbackImage';
+import { MyNavigationProp } from '../types/Navigation';
 
 type SmallCardProps = {
-  src: string;
-  title: string;
-  time: string;
-  author?: string | null;
+  article: ArticleType;
 };
 
-const SmallCard: React.FC<SmallCardProps> = ({ src, title, time, author }) => {
+const SmallCard: React.FC<SmallCardProps> = ({ article }) => {
+  const navigation = useNavigation<MyNavigationProp>();
+
+  const handlePress = () => {
+    navigation.navigate('ArticleScreen', { article });
+  };
+
+  const today = moment();
+
+  const otherDate = moment(article.publishedAt);
+
+  const diffInDays = moment.duration(today.diff(otherDate)).asDays();
+
   return (
     <Pressable
+      onPress={handlePress}
       style={({ pressed }) =>
         pressed ? { ...styles.container, ...styles.pressed } : styles.container
       }
     >
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text ellipsizeMode="tail" numberOfLines={2} style={styles.title}>
+          {article.title}
+        </Text>
         <Text style={styles.author}>
-          {author ? author : 'Anonymous'}. {time}
+          {article.author ? article.author : 'Anonymous'}.{' '}
+          {Math.round(diffInDays)}{' '}
+          {Math.round(diffInDays) === 1 ? 'day' : 'days'} ago
         </Text>
       </View>
-      <View style={styles.imgContainer}>
-        <Image
-          style={styles.newsImage}
-          source={{
-            uri: src,
-          }}
-        />
-      </View>
+      {!article.urlToImage ? (
+        <FallbackImage width={120} height={75} fontSize={12} />
+      ) : (
+        <View style={styles.imgContainer}>
+          <Image
+            style={styles.newsImage}
+            source={{
+              uri: article.urlToImage,
+            }}
+          />
+        </View>
+      )}
     </Pressable>
   );
 };
@@ -38,7 +61,7 @@ export default SmallCard;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 16,
+    padding: 8,
     columnGap: 4,
     marginBottom: 10,
   },
@@ -65,10 +88,11 @@ const styles = StyleSheet.create({
 
   imgContainer: {
     overflow: 'hidden',
+    marginLeft: 8,
   },
   newsImage: {
     borderRadius: 8,
     width: 120,
-    height: 60,
+    height: 75,
   },
 });

@@ -3,7 +3,14 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import Category from '../components/Category';
 
 const Categories: React.FC = () => {
-  const categories = ['business', 'science', 'sports', 'technology', 'health'];
+  const categories = [
+    'Artificial intelligence',
+    'business',
+    'science',
+    'sports',
+    'technology',
+    'health',
+  ];
   return (
     <View style={styles.container}>
       <ScrollView horizontal>

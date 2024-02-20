@@ -6,10 +6,11 @@ import HomeScreen from './screens/HomeScreen';
 import CategoryScreen from './screens/CategoryScreen';
 import ArticleScreen from './screens/ArticleScreen';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ArticleType } from './types/Article';
 
 type MyParamList = {
   Home: undefined;
-  ArticleScreen: undefined;
+  ArticleScreen: { article: ArticleType };
   Category: { title: string };
 };
 

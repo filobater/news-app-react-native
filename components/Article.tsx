@@ -1,46 +1,46 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ArticleType } from '../types/Article';
+import moment from 'moment';
+import FallbackImage from './FallbackImage';
 
 type ArticleProps = {
-  src: string;
-  content: string;
-  title: string;
-  date: string;
-  description: string;
-  author?: string | null;
+  article: ArticleType;
 };
 
-const Article: React.FC<ArticleProps> = ({
-  src,
-  date,
-  title,
-  content,
-  description,
-  author,
-}) => {
+const Article: React.FC<ArticleProps> = ({ article }) => {
+  const content = article.content;
+
+  const startIndex = content.lastIndexOf('[');
+
+  const newContent = content.slice(0, startIndex);
+
+  console.log(article.content);
+
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.date}>{date}</Text>
-      <Text style={styles.title}>
-        {title.slice(0, 1).toUpperCase() + title.slice(1)}
+      <Text style={styles.date}>
+        {moment(article.publishedAt).format('YYYY-MM-DD')}
       </Text>
-      <Text style={styles.description}>{description}</Text>
-      <View style={styles.imgContainer}>
-        <Image
-          style={styles.articleImg}
-          source={{
-            uri: src,
-          }}
-        />
-      </View>
+      <Text style={styles.title}>{article.title}</Text>
+      <Text style={styles.description}>{article.description}</Text>
+      {!article.urlToImage ? (
+        <FallbackImage width={'100%'} height={300} fontSize={15} />
+      ) : (
+        <View style={styles.imgContainer}>
+          <Image
+            style={styles.articleImg}
+            source={{
+              uri: article.urlToImage,
+            }}
+          />
+        </View>
+      )}
       <Text style={styles.author}>
-        by:{' '}
-        {author
-          ? author.slice(0, 1).toUpperCase() + author.slice(1)
-          : 'Anonymous'}
+        by: {article.author ? article.author : 'Anonymous'}
       </Text>
 
-      <Text style={styles.content}>{content}</Text>
+      <Text style={styles.content}>{newContent.replace('...', '.')}</Text>
     </ScrollView>
   );
 };
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
+    marginTop: 20,
   },
   date: {
     marginTop: 4,

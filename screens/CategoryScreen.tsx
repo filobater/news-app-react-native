@@ -1,6 +1,8 @@
 import React, { useLayoutEffect } from 'react';
-import { Text } from 'react-native';
+import { ActivityIndicator, FlatList, Text } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useGetArticles } from '../hooks/useGetArticles';
+import SmallCard from '../components/SmallCard';
 
 type RootStackParamList = {
   Category: { title: string };
@@ -17,9 +19,31 @@ const CategoryScreen: React.FC<Props> = ({ navigation, route }) => {
     });
   }, [navigation, route]);
 
+  const getArticles = useGetArticles(title);
+
+  if (getArticles.isError) {
+    console.log(getArticles.error);
+  }
+
+  let articles;
+
+  if (getArticles.isSuccess) {
+    articles = getArticles?.data?.data.articles;
+  }
+
   return (
     <>
-      <Text>{title}</Text>
+      {getArticles.isLoading ? (
+        <ActivityIndicator size={'large'} style={{ marginTop: 50 }} />
+      ) : (
+        <FlatList
+          style={{ padding: 20 }}
+          data={articles}
+          renderItem={({ item }) => <SmallCard article={item} />}
+          // MAKE PAGINATION
+          // ListFooterComponent={<Text style={{ fontSize: 40 }}>Load More</Text>}
+        />
+      )}
     </>
   );
 };

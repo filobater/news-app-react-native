@@ -30,7 +30,7 @@ const HomeScreen = () => {
   //   return () => subscription.remove();
   // }, []);
 
-  const getArticles = useGetArticles();
+  const getArticles = useGetArticles('general');
 
   if (getArticles.isError) {
     console.log(getArticles.error);
@@ -50,20 +50,14 @@ const HomeScreen = () => {
         <Text style={styles.categoriesText}>Categories</Text>
         <Categories />
       </View>
+
       {getArticles.isLoading ? (
         <ActivityIndicator size={'large'} style={{ marginTop: 50 }} />
       ) : (
         <FlatList
           style={{ paddingHorizontal: 16, paddingTop: 8 }}
-          data={articles?.slice(1)}
-          renderItem={({ item }) => (
-            <Card
-              title={item.title}
-              src={item.urlToImage}
-              time={item.publishedAt}
-              newspaperName={item.source.name}
-            />
-          )}
+          data={articles}
+          renderItem={({ item }) => <Card article={item} />}
           // MAKE PAGINATION
           ListFooterComponent={<Text style={{ fontSize: 40 }}>Load More</Text>}
         />
