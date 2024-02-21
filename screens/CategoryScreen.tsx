@@ -1,8 +1,10 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useGetArticles } from '../hooks/useGetArticles';
 import SmallCard from '../components/SmallCard';
+import Pagination from '../components/Pagination';
+import { ArticleType } from '../types/Article';
 
 type RootStackParamList = {
   Category: { title: string };
@@ -11,6 +13,7 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, 'Category'>;
 
 const CategoryScreen: React.FC<Props> = ({ navigation, route }) => {
+  const [pageNum, setPageNum] = useState(1);
   const { title } = route.params;
 
   useLayoutEffect(() => {
@@ -19,7 +22,7 @@ const CategoryScreen: React.FC<Props> = ({ navigation, route }) => {
     });
   }, [navigation, route]);
 
-  const getArticles = useGetArticles(title);
+  const getArticles = useGetArticles(title, pageNum);
 
   if (getArticles.isError) {
     console.log(getArticles.error);
@@ -31,6 +34,11 @@ const CategoryScreen: React.FC<Props> = ({ navigation, route }) => {
     articles = getArticles?.data?.data.articles;
   }
 
+  const renderItem = useCallback(
+    ({ item }: { item: ArticleType }) => <SmallCard article={item} />,
+    []
+  );
+
   return (
     <>
       {getArticles.isLoading ? (
@@ -38,10 +46,14 @@ const CategoryScreen: React.FC<Props> = ({ navigation, route }) => {
       ) : (
         <FlatList
           style={{ padding: 20 }}
+          refreshing={false}
+          onRefresh={() => getArticles.refetch()}
           data={articles}
-          renderItem={({ item }) => <SmallCard article={item} />}
-          // MAKE PAGINATION
-          // ListFooterComponent={<Text style={{ fontSize: 40 }}>Load More</Text>}
+          initialNumToRender={10}
+          renderItem={renderItem}
+          ListFooterComponent={
+            <Pagination pageNum={pageNum} setPageNum={setPageNum} />
+          }
         />
       )}
     </>

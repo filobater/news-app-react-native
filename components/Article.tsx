@@ -15,8 +15,6 @@ const Article: React.FC<ArticleProps> = ({ article }) => {
 
   const newContent = content.slice(0, startIndex);
 
-  console.log(article.content);
-
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.date}>
@@ -40,7 +38,7 @@ const Article: React.FC<ArticleProps> = ({ article }) => {
         by: {article.author ? article.author : 'Anonymous'}
       </Text>
 
-      <Text style={styles.content}>{newContent.replace('...', '.')}</Text>
+      <Text style={styles.content}>{newContent}</Text>
     </ScrollView>
   );
 };
