@@ -15,6 +15,7 @@ import Card from '../components/Card';
 
 import Pagination from '../components/Pagination';
 import { ArticleType } from '../types/Article';
+import Error from '../components/Error';
 
 // import { useEffect } from 'react';
 // import { AppState, Platform } from 'react-native';
@@ -48,8 +49,6 @@ const HomeScreen = () => {
     articles = getArticles?.data?.data.articles;
   }
 
-  // handle Errors IMPORTANT********************************
-
   const renderItem = useCallback(
     ({ item }: { item: ArticleType }) => <Card article={item} />,
     []
@@ -63,6 +62,8 @@ const HomeScreen = () => {
       </View>
       {getArticles.isLoading ? (
         <ActivityIndicator size={'large'} style={{ marginTop: 50 }} />
+      ) : getArticles.isError ? (
+        <Error errorMessage={getArticles.error.message} />
       ) : (
         <FlatList
           refreshing={false}

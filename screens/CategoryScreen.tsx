@@ -5,6 +5,7 @@ import { useGetArticles } from '../hooks/useGetArticles';
 import SmallCard from '../components/SmallCard';
 import Pagination from '../components/Pagination';
 import { ArticleType } from '../types/Article';
+import Error from '../components/Error';
 
 type RootStackParamList = {
   Category: { title: string };
@@ -43,6 +44,8 @@ const CategoryScreen: React.FC<Props> = ({ navigation, route }) => {
     <>
       {getArticles.isLoading ? (
         <ActivityIndicator size={'large'} style={{ marginTop: 50 }} />
+      ) : getArticles.isError ? (
+        <Error errorMessage={getArticles.error.message} />
       ) : (
         <FlatList
           style={{ padding: 20 }}
