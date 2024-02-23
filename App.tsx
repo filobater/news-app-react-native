@@ -12,6 +12,7 @@ import BookmarkScreen from './screens/BookmarkScreen';
 import { Entypo } from '@expo/vector-icons';
 import Search from './components/Search';
 import SearchScreen from './screens/SearchScreen';
+import { BookmarksProvider } from './contexts/BookmarksContext';
 
 type MyParamList = {
   Main: undefined;
@@ -60,24 +61,26 @@ export default function App() {
   return (
     <NavigationContainer>
       <QueryClientProvider client={queryClient}>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Main"
-            component={BottomTabs}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen name="ArticleScreen" component={ArticleScreen} />
-          <Stack.Screen
-            options={{
-              headerRight: () => <Search />,
-            }}
-            name="Category"
-            component={CategoryScreen}
-          />
-          <Stack.Screen name="SearchScreen" component={SearchScreen} />
-        </Stack.Navigator>
+        <BookmarksProvider>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Main"
+              component={BottomTabs}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="ArticleScreen" component={ArticleScreen} />
+            <Stack.Screen
+              options={{
+                headerRight: () => <Search />,
+              }}
+              name="Category"
+              component={CategoryScreen}
+            />
+            <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          </Stack.Navigator>
+        </BookmarksProvider>
       </QueryClientProvider>
     </NavigationContainer>
   );
