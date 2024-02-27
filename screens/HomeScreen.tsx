@@ -63,7 +63,10 @@ const HomeScreen = () => {
       {getArticles.isLoading ? (
         <ActivityIndicator size={'large'} style={{ marginTop: 50 }} />
       ) : getArticles.isError ? (
-        <Error errorMessage={getArticles.error.message} />
+        <Error
+          refetch={getArticles.refetch}
+          errorMessage={getArticles.error.message}
+        />
       ) : (
         <FlatList
           refreshing={false}

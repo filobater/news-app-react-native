@@ -12,6 +12,7 @@
     "@react-navigation/bottom-tabs": "^6.5.12",
     "@react-navigation/native-stack": "^6.9.18",
     "@tanstack/react-query": "^5.22.2",
+    "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.7",
     "expo": "^49.0.23",
     "expo-status-bar": "~1.11.1",

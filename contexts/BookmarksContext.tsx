@@ -22,11 +22,8 @@ export const BookmarksProvider: React.FC<BookmarksProviderProps> = ({
 }) => {
   const [bookmarks, setBookmarks] = useState<ArticleType[]>([]);
 
-  console.log(bookmarks, '..................');
-
   const handleAddToBookmarks = (article: ArticleType) => {
     setBookmarks([...bookmarks, { ...article, bookmarked: true }]);
-    console.log('added');
   };
 
   const handleRemoveBookmark = (articleUrl: string | undefined) => {

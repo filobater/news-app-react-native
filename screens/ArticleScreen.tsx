@@ -16,7 +16,6 @@ const ArticleScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const { article } = route.params;
 
-  // console.log(article);
   const articleBookmarked = bookmarksCtx?.bookmarks.find(
     (bookmark) => bookmark.url === article.url
   );

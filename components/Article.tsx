@@ -1,5 +1,12 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from 'react-native';
 import { ArticleType } from '../types/Article';
 import moment from 'moment';
 import FallbackImage from './FallbackImage';
@@ -15,6 +22,7 @@ const Article: React.FC<ArticleProps> = ({ article }) => {
 
   const newContent = content.slice(0, startIndex);
 
+  const windowWidth = Dimensions.get('window').width;
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.date}>
@@ -23,11 +31,18 @@ const Article: React.FC<ArticleProps> = ({ article }) => {
       <Text style={styles.title}>{article.title}</Text>
       <Text style={styles.description}>{article.description}</Text>
       {!article.urlToImage ? (
-        <FallbackImage width={'100%'} height={300} fontSize={15} />
+        <FallbackImage
+          width={'100%'}
+          height={windowWidth < 400 ? 300 : 500}
+          fontSize={15}
+        />
       ) : (
         <View style={styles.imgContainer}>
           <Image
-            style={styles.articleImg}
+            style={{
+              ...styles.articleImg,
+              height: windowWidth < 400 ? 300 : 500,
+            }}
             source={{
               uri: article.urlToImage,
             }}
@@ -79,7 +94,6 @@ const styles = StyleSheet.create({
   articleImg: {
     borderRadius: 8,
     width: '100%',
-    height: 300,
   },
 
   author: {
