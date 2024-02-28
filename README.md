@@ -4,6 +4,12 @@ Project Name: New-app-react-native
 Description:
 A modern and efficient news app built with React Native, Expo, and TypeScript, providing users with easy access to a variety of news sources and a seamless reading experience.
 
+Technologies:<br/>
+React Native<br/>
+React Native Navigation<br/>
+Tanstack query<br/>
+Typescript<br/>
+
 Features:<br/>
 news feed: Customize your content by selecting preferred categories.<br/>
 Search functionality: Find specific articles with ease.<br/>
