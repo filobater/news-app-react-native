@@ -8,6 +8,7 @@ Features:<br/>
 news feed: Customize your content by selecting preferred categories.<br/>
 Search functionality: Find specific articles with ease.<br/>
 Bookmarking: Save articles for easy reference.<br/>
+Pagination<br/>
 
 Installtion:<br/>
 Clone this repository: git clone [https://github.com/filobater/news-app-react-native](https://github.com/filobater/news-app-react-native)<br/>
