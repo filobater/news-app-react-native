@@ -17,7 +17,7 @@ const SearchScreen = () => {
   const [pageNum, setPageNum] = useState(1);
 
   const [searchValue, setSearchValue] = useState('');
-  const debouncedSearch = useDebounce(searchValue, 2000);
+  const debouncedSearch = useDebounce(searchValue.trim(), 2000);
 
   const getArticles = useGetArticles(debouncedSearch, pageNum);
 
@@ -42,7 +42,7 @@ const SearchScreen = () => {
         placeholder={'Search...'}
         autoFocus
       />
-      {searchValue.length > 0 && (
+      {searchValue.trim().length > 0 && (
         <>
           {getArticles.isLoading ? (
             <ActivityIndicator size={'large'} style={{ marginTop: 50 }} />
