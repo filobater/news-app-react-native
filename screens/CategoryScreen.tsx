@@ -2,10 +2,11 @@ import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useGetArticles } from '../hooks/useGetArticles';
-import SmallCard from '../components/SmallCard';
+
 import Pagination from '../components/Pagination';
 import { ArticleType } from '../types/Article';
 import Error from '../components/Error';
+import SmallCard from '../components/SmallCard';
 
 type RootStackParamList = {
   Category: { title: string };

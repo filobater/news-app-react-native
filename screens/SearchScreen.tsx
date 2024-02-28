@@ -39,7 +39,7 @@ const SearchScreen = () => {
       <TextInput
         onChangeText={setSearchValue}
         style={styles.searchInput}
-        placeholder={'Search for news'}
+        placeholder={'Search...'}
         autoFocus
       />
       {searchValue.length > 0 && (

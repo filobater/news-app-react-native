@@ -56,10 +56,6 @@ const HomeScreen = () => {
 
   return (
     <View style={{ backgroundColor: 'white', flex: 1 }}>
-      <View style={{ paddingVertical: 10 }}>
-        <Text style={styles.categoriesText}>Categories</Text>
-        <Categories />
-      </View>
       {getArticles.isLoading ? (
         <ActivityIndicator size={'large'} style={{ marginTop: 50 }} />
       ) : getArticles.isError ? (
@@ -75,6 +71,17 @@ const HomeScreen = () => {
           style={{ paddingHorizontal: 16, paddingTop: 8 }}
           data={articles}
           renderItem={renderItem}
+          ListHeaderComponent={
+            <View
+              style={{
+                paddingVertical: 10,
+                marginBottom: 10,
+              }}
+            >
+              <Text style={styles.categoriesText}>Categories</Text>
+              <Categories />
+            </View>
+          }
           ListFooterComponent={
             <Pagination pageNum={pageNum} setPageNum={setPageNum} />
           }
@@ -90,8 +97,7 @@ const styles = StyleSheet.create({
   categoriesText: {
     fontSize: 20,
     fontWeight: '600',
-    marginLeft: 16,
-    marginBottom: 16,
-    marginTop: 6,
+
+    marginBottom: 8,
   },
 });

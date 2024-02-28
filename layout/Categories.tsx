@@ -12,20 +12,14 @@ const Categories: React.FC = () => {
     'health',
   ];
   return (
-    <View style={styles.container}>
-      <ScrollView horizontal>
-        {categories.map((category) => (
-          <Category key={category} name={category} />
-        ))}
-      </ScrollView>
-    </View>
+    <ScrollView horizontal>
+      {categories.map((category) => (
+        <Category key={category} name={category} />
+      ))}
+    </ScrollView>
   );
 };
 
 export default Categories;
 
-const styles = StyleSheet.create({
-  container: {
-    marginLeft: 8,
-  },
-});
+const styles = StyleSheet.create({});

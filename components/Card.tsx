@@ -1,6 +1,13 @@
 import moment from 'moment';
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { ArticleType } from '../types/Article';
 import { MyNavigationProp } from '../types/Navigation';
 
@@ -18,6 +25,8 @@ const Card: React.FC<CardProps> = ({ article }) => {
     navigation.navigate('ArticleScreen', { article });
   };
 
+  const windowWidth = Dimensions.get('window').width;
+
   return (
     <Pressable
       onPress={handlePress}
@@ -26,11 +35,18 @@ const Card: React.FC<CardProps> = ({ article }) => {
       }
     >
       {!article.urlToImage ? (
-        <FallbackImage width={'100%'} height={200} fontSize={14} />
+        <FallbackImage
+          width={'100%'}
+          height={windowWidth < 400 ? 200 : 400}
+          fontSize={14}
+        />
       ) : (
         <View style={styles.imgContainer}>
           <Image
-            style={styles.newsImage}
+            style={{
+              ...styles.newsImage,
+              height: windowWidth < 400 ? 200 : 400,
+            }}
             source={{
               uri: article.urlToImage,
             }}
@@ -64,7 +80,6 @@ const styles = StyleSheet.create({
   newsImage: {
     borderRadius: 8,
     width: '100%',
-    height: 200,
   },
 
   title: {

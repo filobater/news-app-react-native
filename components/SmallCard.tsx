@@ -1,5 +1,12 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { ArticleType } from '../types/Article';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
@@ -23,11 +30,15 @@ const SmallCard: React.FC<SmallCardProps> = ({ article }) => {
 
   const diffInDays = moment.duration(today.diff(otherDate)).asDays();
 
+  const windowWidth = Dimensions.get('window').width;
+
   return (
     <Pressable
       onPress={handlePress}
       style={({ pressed }) =>
-        pressed ? { ...styles.container, ...styles.pressed } : styles.container
+        pressed
+          ? { ...styles.container, ...styles.pressed }
+          : { ...styles.container }
       }
     >
       <View style={styles.titleContainer}>
@@ -41,11 +52,19 @@ const SmallCard: React.FC<SmallCardProps> = ({ article }) => {
         </Text>
       </View>
       {!article.urlToImage ? (
-        <FallbackImage width={120} height={75} fontSize={12} />
+        <FallbackImage
+          width={windowWidth < 400 ? 120 : 300}
+          height={windowWidth < 400 ? 75 : 100}
+          fontSize={12}
+        />
       ) : (
         <View style={styles.imgContainer}>
           <Image
-            style={styles.newsImage}
+            style={{
+              ...styles.newsImage,
+              width: windowWidth < 400 ? 120 : 300,
+              height: windowWidth < 400 ? 75 : 120,
+            }}
             source={{
               uri: article.urlToImage,
             }}
@@ -64,6 +83,7 @@ const styles = StyleSheet.create({
     padding: 8,
     columnGap: 4,
     marginBottom: 10,
+    alignItems: 'center',
   },
 
   pressed: {
@@ -92,7 +112,5 @@ const styles = StyleSheet.create({
   },
   newsImage: {
     borderRadius: 8,
-    width: 120,
-    height: 75,
   },
 });

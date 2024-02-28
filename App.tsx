@@ -35,6 +35,8 @@ export default function App() {
       >
         <Tab.Screen
           options={{
+            headerShadowVisible: false,
+
             headerRight: () => <Search />,
             tabBarLabel: 'Home',
             title: 'News',
@@ -78,7 +80,13 @@ export default function App() {
               name="Category"
               component={CategoryScreen}
             />
-            <Stack.Screen name="SearchScreen" component={SearchScreen} />
+            <Stack.Screen
+              options={{
+                title: 'Search for news',
+              }}
+              name="SearchScreen"
+              component={SearchScreen}
+            />
           </Stack.Navigator>
         </BookmarksProvider>
       </QueryClientProvider>
