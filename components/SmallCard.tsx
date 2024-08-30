@@ -53,8 +53,8 @@ const SmallCard: React.FC<SmallCardProps> = ({ article }) => {
       </View>
       {!article.urlToImage ? (
         <FallbackImage
-          width={windowWidth < 400 ? 120 : 300}
-          height={windowWidth < 400 ? 75 : 100}
+          width={windowWidth < 400 ? 120 : 150}
+          height={windowWidth < 400 ? 75 : 150}
           fontSize={12}
         />
       ) : (
@@ -62,8 +62,8 @@ const SmallCard: React.FC<SmallCardProps> = ({ article }) => {
           <Image
             style={{
               ...styles.newsImage,
-              width: windowWidth < 400 ? 120 : 300,
-              height: windowWidth < 400 ? 75 : 120,
+              width: windowWidth < 400 ? 120 : 150,
+              height: windowWidth < 400 ? 75 : 150,
             }}
             source={{
               uri: article.urlToImage,
